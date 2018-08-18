@@ -99,7 +99,13 @@
              "ħ" "X\\" 
              "ʕ" "?\\"})
 
-(def features [:cons :son :appr :voice :asp :glot :cont :nasal :lat :sibil :LAB :round :KOR :ant :apic :DORS :back :high :low :tense :RAD])
+(def features [:cons :son :appr
+               :voice :asp :glot
+               :cont :nasal :lat :sibil
+               :LAB :round
+               :KOR :ant :apic
+               :DORS :back :high :low :tense
+               :RAD])
 
 (def place-features {:LAB  #{:round}
                      :KOR  #{:ant :apic}
