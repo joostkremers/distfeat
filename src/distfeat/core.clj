@@ -5,7 +5,8 @@
   (:gen-class))
 
 (defn shared-features
-  "Return a map of features and values shared by all elements in `phonemes`."
+  "Return a map of features and values shared by all elements in `phonemes`.
+  `phonemes` should be a seq of sets of features."
   [& phonemes]
   (into {} (reduce #(set/intersection %1 %2) phonemes)))
 
