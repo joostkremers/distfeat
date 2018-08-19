@@ -35,9 +35,9 @@
 
 (defn describe-phoneme
   "Return a string describing `features`.
-  `sep` is the separator, `conv` a hash map describing how the values `true` and
-  `false` should be represented. Default is \"+\" for `true` and \"-\" for
-  `false'."
+  `sep` is the separator, `conv` a hash map describing how the values `true`
+  and/or `false` should be represented. Default is \"+\" for `true` and \"-\"
+  for `false'."
   [features & {:keys [sep conv]}]
   (let [convertors (merge {true "+" false "-"} conv)]
     (string/join (or sep " ") (map #(feature->string convertors %) features))))
