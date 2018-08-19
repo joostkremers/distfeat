@@ -32,7 +32,7 @@
   "Turn `feature` into a displayable string.
   `feature` should be a two-element vector of [feature-name value]. `conversion`
   is a hash map describing how the values `true` and `false` should be
-  represented. Default is \"+\" for `true` and \"-\" for `false'."
+  represented. Default is {true \"+\", false \"-\"}."
   ([feature] (feature->string {true "+" false "-"} feature))
   ([conversion feature]
    (if (ph/place-feature? (first feature))
