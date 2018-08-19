@@ -1,7 +1,7 @@
 (ns distfeat.phonemes)
 
 (def obstruents-table
-  [[      :cons  :son   :appr  :syl   :voice :asp   :glot  :cont  :nasal :lat   :sibil :LAB   :round :KOR   :ant   :apic  :DORS  :back  :high  :low   :RAD]
+  [[      :cons  :son   :appr  :syl   :voice :asp   :glot  :cont  :nasal :lat   :sibil :LAB   :round :COR   :ant   :apic  :DORS  :back  :high  :low   :RAD]
    ["p"   true   false  false  false  false  false  false  false  false  false  false  true   false  nil    nil    nil    nil    nil    nil    nil    nil ]
    ["b"   true   false  false  false  true   false  false  false  false  false  false  true   false  nil    nil    nil    nil    nil    nil    nil    nil ]
    ["t"   true   false  false  false  false  false  false  false  false  false  false  nil    nil    true   true   true   nil    nil    nil    nil    nil ]
@@ -32,7 +32,7 @@
    ["?\\" true   false  false  false  true   false  false  true   false  false  false  nil    nil    nil    nil    nil    nil    nil    nil    nil    true]])
 
 (def sonorants-table
-  [[      :cons  :son   :appr  :syl   :voice :asp   :glot  :cont  :nasal :lat   :sibil :LAB  :round :KOR   :ant   :apic  :DORS  :back  :high  :low ]
+  [[      :cons  :son   :appr  :syl   :voice :asp   :glot  :cont  :nasal :lat   :sibil :LAB  :round :COR   :ant   :apic  :DORS  :back  :high  :low ]
    ["m"   true   true   false  false  true   false  false  false  true   false  false  true  false  nil    nil    nil    nil    nil    nil    nil  ]
    ["n"   true   true   false  false  true   false  false  false  true   false  false  nil   nil    true   true   true   nil    nil    nil    nil  ]
    ["n`"  true   true   false  false  true   false  false  false  true   false  false  nil   nil    true   false  true   nil    nil    nil    nil  ]
@@ -103,12 +103,12 @@
                :voice :asp :glot             ; laryngeal features
                :cont :nasal :lat :sibil      ; manner features
                :LAB :round                   ; place features
-               :KOR :ant :apic
+               :COR :ant :apic
                :DORS :back :high :low :tense
                :RAD])
 
 (def place-features {:LAB  #{:round}
-                     :KOR  #{:ant :apic}
+                     :COR  #{:ant :apic}
                      :DORS #{:back :high :tense}
                      :RAD  #{}})
 
