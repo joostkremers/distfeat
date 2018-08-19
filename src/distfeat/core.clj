@@ -14,7 +14,7 @@
   `phoneme` can be an IPA symbol or an X-SAMPA description. If `as-set` is true,
   return the features as a set, otherwise as a hash map."
   ([phoneme] (get-phoneme phoneme nil))
-  ([phoneme as-set] (let [p (or (get ph/xsampa phoneme) phoneme)
+  ([phoneme as-set] (let [p (or (get ph/ipa->xsampa phoneme) phoneme)
                           features (or (get ph/obstruents p)
                                        (get ph/sonorants p)
                                        (get ph/vowels p))]
