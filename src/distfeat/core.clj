@@ -9,6 +9,11 @@
   [& phonemes]
   (into {} (reduce #(set/intersection %1 %2) phonemes)))
 
+(defn all-phonemes-with
+  "Return all phonems with `features`."
+  [features]
+  (filter #(set/subset? (set features) (set (second %))) (set ph/phonemes)))
+
 (defn get-phoneme
   "Return a map of features for `phoneme`.
   `phoneme` can be an IPA symbol or an X-SAMPA description. If `as-set` is true,
