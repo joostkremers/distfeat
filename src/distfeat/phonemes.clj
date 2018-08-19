@@ -131,3 +131,4 @@
 (def obstruents (convert-table-to-map obstruents-table))
 (def sonorants (convert-table-to-map sonorants-table))
 (def vowels (convert-table-to-map vowels-table))
+(def phonemes (merge obstruents sonorants vowels))
