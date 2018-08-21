@@ -15,30 +15,20 @@
   [features]
   (filter #(set/subset? (set features) (set (second %))) (set ph/phonemes)))
 
-(defn get-phoneme
-  "Return a map of features for `phoneme`.
-  `phoneme` can be an IPA symbol or an X-SAMPA description. If `as-set` is true,
-  return the features as a set, otherwise as a hash map."
-  ([phoneme] (get-phoneme phoneme nil))
-  ([phoneme as-set] (let [ph (ph/normalize phoneme)
-                          features (get ph/phonemes ph)]
-                      (if as-set
-                        (set features)
-                        features))))
 
 (defn get-feature-value
   "Return the value of `feature` in `phoneme`.
   If `feature` does not exist in `phoneme`, return nil."
   [feature phoneme]
-  (get (get-phoneme phoneme) feature))
+  (get (ph/get-phoneme phoneme) feature))
 
 (defn has-feature?
   "Return true if `phoneme` has `feature`.
   `feature` should be a keyword or a keyword-value vector."
   [phoneme feature]
   (if (keyword? feature)
-    (contains? (get-phoneme phoneme) feature)
-    (contains? (get-phoneme phoneme :as-set) feature)))
+    (contains? (ph/get-phoneme phoneme) feature)
+    (contains? (ph/get-phoneme phoneme :as-set) feature)))
 (defn feature->string
   "Turn `feature` into a displayable string.
   `feature` should be a two-element vector of [feature-name value]. `conversion`

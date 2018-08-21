@@ -148,3 +148,14 @@
 (def sonorants (convert-table-to-map sonorants-table))
 (def vowels (convert-table-to-map vowels-table))
 (def phonemes (merge obstruents sonorants vowels))
+
+(defn get-phoneme
+  "Return a map of features for `phoneme`.
+  `phoneme` can be an IPA symbol or an X-SAMPA description. If `as-set` is true,
+  return the features as a set, otherwise as a hash map."
+  ([phoneme] (get-phoneme phoneme nil))
+  ([phoneme as-set] (let [ph (normalize phoneme)
+                          features (get phonemes ph)]
+                      (if as-set
+                        (set features)
+                        features))))
