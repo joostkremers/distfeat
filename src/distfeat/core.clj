@@ -26,6 +26,19 @@
                         (set features)
                         features))))
 
+(defn get-feature-value
+  "Return the value of `feature` in `phoneme`.
+  If `feature` does not exist in `phoneme`, return nil."
+  [feature phoneme]
+  (get (get-phoneme phoneme) feature))
+
+(defn has-feature?
+  "Return true if `phoneme` has `feature`.
+  `feature` should be a keyword or a keyword-value vector."
+  [phoneme feature]
+  (if (keyword? feature)
+    (contains? (get-phoneme phoneme) feature)
+    (contains? (get-phoneme phoneme :as-set) feature)))
 (defn feature->string
   "Turn `feature` into a displayable string.
   `feature` should be a two-element vector of [feature-name value]. `conversion`
