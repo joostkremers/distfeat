@@ -70,7 +70,7 @@
    ["O" false  true  true  true  true   true  true  true   false  false  false  true  true  ]
    ["A" false  true  true  true  true   true  true  true   false  true   false  nil   nil   ]])
 
-(def ipa->xsampa {"p" "p"   ,  "m" "m"    ,  "i" "i"
+(def ipa-symbols {"p" "p"   ,  "m" "m"    ,  "i" "i"
                   "b" "b"   ,  "n" "n"    ,  "ɪ" "I"
                   "t" "t"   ,  "ɳ" "n`"   ,  "y" "y"
                   "d" "d"   ,  "ɲ" "J"    ,  "ʏ" "Y"
@@ -99,7 +99,23 @@
                   "ħ" "X\\"
                   "ʕ" "?\\"})
 
-(def xsampa->ipa (clojure.set/map-invert ipa->xsampa))
+(def xsampa-symbols (clojure.set/map-invert ipa-symbols))
+
+(defn ipa->xsampa
+  "Return the X-SAMPA representation for the IPA symbol `p`."
+  [p]
+  (get ipa-symbols p))
+
+(defn xsampa->ipa
+  "Return the IPA symbol for the X-SAMPA representation `x`."
+  [x]
+  (get xsampa-symbols x))
+
+(defn normalize
+  "Turn `phoneme` into its X-SAMPA representation.
+  If `phoneme` is already an X-SAMPA representation, just return it."
+  [phoneme]
+  (or (ipa->xsampa phoneme) phoneme))
 
 (def features [:cons :son :appr :syl         ; major class features
                :voice :asp :glot             ; laryngeal features
