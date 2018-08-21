@@ -67,6 +67,19 @@
   (let [convertors (merge {true "+" false "-"} conv)]
     (string/join (or sep " ") (map #(feature->string convertors %) features))))
 
+(def test-inventory ["d" "n" "œ"
+                     "z" "s" "f"
+                     "e" "ɦ" "p"
+                     "j" "x" "v"
+                     "ʃ" "ʏ" "ʔ"
+                     "ɛ" "ç" "a"
+                     "ɶ" "t" "ʊ"
+                     "ɔ" "i" "k"
+                     "b" "r" "y"
+                     "g" "χ" "l"
+                     "ŋ" "u" "ɪ"
+                     "ø" "m" "o"])
+
 (defn -main
   "I don't do a whole lot ... yet."
   [& args]
