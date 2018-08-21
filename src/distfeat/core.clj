@@ -1,20 +1,21 @@
 (ns distfeat.core
   (:require [clojure.set :as set]
             [clojure.string :as string]
+            [clojure.math.combinatorics :as combo]
             [distfeat.phonemes :as ph])
   (:gen-class))
 
 (defn shared-features
   "Return a map of features and values shared by all elements in `phonemes`.
   `phonemes` should be a seq of sets of features."
-  [& phonemes]
-  (into {} (reduce #(set/intersection %1 %2) phonemes)))
+  [phonemes]
+  (into {} (reduce #(set/intersection %1 %2) (map #(ph/get-phoneme % :as-set) phonemes))))
 
 (defn all-phonemes-with
-  "Return all phonems with `features`."
-  [features]
-  (filter #(set/subset? (set features) (set (second %))) (set ph/phonemes)))
-
+  "Return a set of all phonemes in `inventory` with `features`.
+  `features` is a hash map, `inventory` a seq of phonemes."
+  [features inventory]
+  (set (filter #(set/subset? (set features) (set (get ph/phonemes %))) (set inventory))))
 
 (defn get-feature-value
   "Return the value of `feature` in `phoneme`.
@@ -29,6 +30,23 @@
   (if (keyword? feature)
     (contains? (ph/get-phoneme phoneme) feature)
     (contains? (ph/get-phoneme phoneme :as-set) feature)))
+
+(defn natural-class?
+  "Determine if `phonemes` is a natural class given `inventory`.
+  `phonemes` and `inventory` are seqs of phoneme strings, either IPA or X-SAMPA.
+  The return value is a hash map of features describing the natural class or nil
+  if the phonemes do not constitute a natural class."
+  [phonemes inventory]
+  (let [members (set (map ph/normalize phonemes))
+        inv (map ph/normalize inventory)
+        features (vec (shared-features members))
+        max-n (count features)]
+    (loop [n 1]
+      (if (<= n max-n)
+        (let [fs (combo/combinations features n)]
+          (or (first (filter #(= members (all-phonemes-with % inv)) fs))
+              (recur (inc n))))))))
+
 (defn feature->string
   "Turn `feature` into a displayable string.
   `feature` should be a two-element vector of [feature-name value]. `conversion`
